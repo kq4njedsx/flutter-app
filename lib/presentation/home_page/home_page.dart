@@ -46,8 +46,8 @@ class _MyHomePageState extends State<MyHomePage> {
         descriptionText: 'hiiiiiii',
         icon: Icons.hail,
         imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3pVwVLs6qIQd7AwQTjr5STZ9kZdldzZJDh_86gT-ckJ3ARSRBPAeANmc&s=10',
-        detailsImageUrl: 'https://media3.giphy.com/media/v1.Y2lkPTA1NzQyMTNjbHRrNDF5bnE2MTY0YmJiemlrbWh1OWoxeHczMHZ3YmV1azlvNXZieSZlcD12MV9naWZzJmN0PWc/5wfLShGlRxsVFS1wJV/200.gif',
-        detailsText: 'exhaustion',
+        detailsImageUrl: 'https://media.tenor.com/_sIZvkcIW0wAAAAM/rigbycat-rigby.gif',
+        detailsText: 'ultimate bathroom break',
       ),
       CardData(
         'achtung',

@@ -5,10 +5,10 @@ typedef OnLikeCallback = void Function(String title, bool isLiked)?;
 class CardData {
   final String text;
   final String descriptionText;
-  final String detailsText; // Уникальный текст для деталки
+  final String detailsText;
   final IconData icon;
   final String? imageUrl;
-  final String? detailsImageUrl; // Уникальная картинка для деталки
+  final String? detailsImageUrl;
 
   CardData(
       this.text, {
