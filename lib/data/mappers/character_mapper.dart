@@ -2,7 +2,7 @@ import 'package:proj1/data/dtos/characters_dto.dart';
 import 'package:proj1/domain/models/card.dart';
 
 const String _imagePlaceholder =
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8Ko1YCURBO1IUZuN6dyMpxrshbMtwhjQr0noR0_0XDg&s=10';
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzxjeRoyHKHBUzrGKfTdDq_hR4aL7rCeo62iFBzVUQQQ&s=10';
 
 extension CharacterDataDtoToModel on CharacterDataDto {
   CardData toDomain() => CardData(
