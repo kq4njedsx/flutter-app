@@ -1,5 +1,5 @@
-import 'package:proj1/domain/models/card.dart';
+import 'package:proj1/domain/models/home.dart';
 
 abstract class ApiInterface {
-  Future<List<CardData>?> loadData({String? q});
+  Future<HomeData?> loadData({Function(String?)? onError, String? q, int page = 1});
 }

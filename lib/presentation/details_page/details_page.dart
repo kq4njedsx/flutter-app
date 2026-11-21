@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../domain/models/card.dart';
 
 class DetailsPage extends StatelessWidget {
@@ -11,9 +12,7 @@ class DetailsPage extends StatelessWidget {
     final String imageToShow = data.detailsImageUrl ?? data.imageUrl ?? '';
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(data.text),
-      ),
+      appBar: AppBar(title: Text(data.text)),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,15 +35,9 @@ class DetailsPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      data.text,
-                      style: Theme.of(context).textTheme.headlineLarge,
-                    ),
+                    child: Text(data.text, style: Theme.of(context).textTheme.headlineLarge),
                   ),
-                  Text(
-                    data.detailsText,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
+                  Text(data.detailsText, style: Theme.of(context).textTheme.bodyLarge),
                 ],
               ),
             ),

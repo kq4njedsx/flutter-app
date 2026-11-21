@@ -5,39 +5,52 @@ part 'characters_dto.g.dart';
 @JsonSerializable(createToJson: false)
 class CharactersDto {
   final List<CharacterDataDto>? data;
+  final MetaDto? meta;
 
-  const CharactersDto({this.data});
+  const CharactersDto({this.data, this.meta});
 
-  factory CharactersDto.fromJson(Map<String, dynamic> json) =>
-      _$CharactersDtoFromJson(json);
+  factory CharactersDto.fromJson(Map<String, dynamic> json) => _$CharactersDtoFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class MetaDto {
+  final PaginationDto? pagination;
+
+  const MetaDto({this.pagination});
+
+  factory MetaDto.fromJson(Map<String, dynamic> json) => _$MetaDtoFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class PaginationDto {
+  final int? current;
+  final int? next;
+  final int? last;
+
+  const PaginationDto({this.current, this.next, this.last});
+
+  factory PaginationDto.fromJson(Map<String, dynamic> json) => _$PaginationDtoFromJson(json);
 }
 
 @JsonSerializable(createToJson: false)
 class CharacterDataDto {
   final String? id;
-  final String? type;
-  final CharacterAttributesDataDto? attributes;
+  final CharacterAttributesDto? attributes;
 
-  const CharacterDataDto({this.id, this.type, this.attributes});
+  const CharacterDataDto({this.id, this.attributes});
 
-  factory CharacterDataDto.fromJson(Map<String, dynamic> json) =>
-      _$CharacterDataDtoFromJson(json);
+  factory CharacterDataDto.fromJson(Map<String, dynamic> json) => _$CharacterDataDtoFromJson(json);
 }
 
 @JsonSerializable(createToJson: false)
-class CharacterAttributesDataDto {
+class CharacterAttributesDto {
   final String? name;
+  final String? image;
   final String? born;
   final String? died;
-  final String? image;
 
-  const CharacterAttributesDataDto({
-    this.name,
-    this.born,
-    this.died,
-    this.image,
-  });
+  const CharacterAttributesDto({this.name, this.image, this.born, this.died});
 
-  factory CharacterAttributesDataDto.fromJson(Map<String, dynamic> json) =>
-      _$CharacterAttributesDataDtoFromJson(json);
+  factory CharacterAttributesDto.fromJson(Map<String, dynamic> json) =>
+      _$CharacterAttributesDtoFromJson(json);
 }

@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:proj1/domain/models/card.dart';
 
-class CardWidget extends StatefulWidget {
+class CardWidget extends StatelessWidget {
   final CardData data;
-  final Function(String title, bool isLiked) onLike;
-  final VoidCallback onTap;
+  final OnLikeCallback onLike;
+  final VoidCallback? onTap;
+  final bool isLiked;
 
   const CardWidget({
     super.key,
     required this.data,
-    required this.onLike,
-    required this.onTap,
+    this.onLike,
+    this.onTap,
+    this.isLiked = false,
   });
 
   factory CardWidget.fromData(
       CardData data, {
-        required Function(String title, bool isLiked) onLike,
-        required VoidCallback onTap,
+        OnLikeCallback onLike,
+        VoidCallback? onTap,
+        bool isLiked = false,
       }) {
     return CardWidget(
       data: data,
       onLike: onLike,
       onTap: onTap,
+      isLiked: isLiked,
     );
   }
 
   @override
-  State<CardWidget> createState() => _CardWidgetState();
-}
-
-class _CardWidgetState extends State<CardWidget> {
-  bool _isLiked = false;
-
-  @override
   Widget build(BuildContext context) {
+    final imageUrl = data.imageUrl?.trim();
+    final hasImage = imageUrl != null && imageUrl.isNotEmpty;
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
@@ -42,7 +42,7 @@ class _CardWidgetState extends State<CardWidget> {
         border: Border.all(color: Colors.lightBlueAccent.withOpacity(0.5)),
       ),
       child: InkWell(
-        onTap: widget.onTap,
+        onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         child: IntrinsicHeight(
           child: Row(
@@ -55,12 +55,20 @@ class _CardWidgetState extends State<CardWidget> {
                 ),
                 child: SizedBox(
                   width: 100,
-                  child: widget.data.imageUrl != null
+                  child: hasImage
                       ? Image.network(
-                    widget.data.imageUrl!,
+                    imageUrl,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                    const Icon(Icons.person, size: 50),
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return const Center(
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      debugPrint('IMAGE ERR [$imageUrl]: $error');
+                      return const Icon(Icons.person, size: 50);
+                    },
                   )
                       : const Icon(Icons.person, size: 50),
                 ),
@@ -68,22 +76,25 @@ class _CardWidgetState extends State<CardWidget> {
               const SizedBox(width: 12),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 8,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        widget.data.text,
+                        data.text,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      if (widget.data.descriptionText.isNotEmpty) ...[
+                      if (data.descriptionText.isNotEmpty) ...[
                         const SizedBox(height: 4),
                         Text(
-                          widget.data.descriptionText,
+                          data.descriptionText,
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.grey[700],
@@ -96,14 +107,11 @@ class _CardWidgetState extends State<CardWidget> {
               ),
               IconButton(
                 icon: Icon(
-                  _isLiked ? Icons.favorite : Icons.favorite_border,
-                  color: _isLiked ? Colors.blueGrey : Colors.black,
+                  isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: isLiked ? Colors.blueGrey : Colors.black,
                 ),
                 onPressed: () {
-                  setState(() {
-                    _isLiked = !_isLiked;
-                  });
-                  widget.onLike(widget.data.text, _isLiked);
+                  onLike?.call(data.id, data.text, isLiked);
                 },
               ),
             ],
